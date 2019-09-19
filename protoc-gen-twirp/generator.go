@@ -29,9 +29,9 @@ import (
 	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/pkg/errors"
-	"github.com/twitchtv/twirp/internal/gen"
-	"github.com/twitchtv/twirp/internal/gen/stringutils"
-	"github.com/twitchtv/twirp/internal/gen/typemap"
+	"github.com/igorbeider/twirp/internal/gen"
+	"github.com/igorbeider/twirp/internal/gen/stringutils"
+	"github.com/igorbeider/twirp/internal/gen/typemap"
 )
 
 type twirp struct {
@@ -230,7 +230,7 @@ func (t *twirp) generateFileHeader(file *descriptor.FileDescriptorProto) {
 	if t.filesHandled == 0 {
 		t.P("/*")
 		t.P("Package ", t.genPkgName, " is a generated twirp stub package.")
-		t.P("This code was generated with github.com/twitchtv/twirp/protoc-gen-twirp ", gen.Version, ".")
+		t.P("This code was generated with github.com/igorbeider/twirp/protoc-gen-twirp ", gen.Version, ".")
 		t.P()
 		comment, err := t.reg.FileComments(file)
 		if err == nil && comment.Leading != "" {
@@ -277,8 +277,8 @@ func (t *twirp) generateImports(file *descriptor.FileDescriptorProto) {
 	t.P()
 	t.P(`import `, t.pkgs["jsonpb"], ` "github.com/golang/protobuf/jsonpb"`)
 	t.P(`import `, t.pkgs["proto"], ` "github.com/golang/protobuf/proto"`)
-	t.P(`import `, t.pkgs["twirp"], ` "github.com/twitchtv/twirp"`)
-	t.P(`import `, t.pkgs["ctxsetters"], ` "github.com/twitchtv/twirp/ctxsetters"`)
+	t.P(`import `, t.pkgs["twirp"], ` "github.com/igorbeider/twirp"`)
+	t.P(`import `, t.pkgs["ctxsetters"], ` "github.com/igorbeider/twirp/ctxsetters"`)
 	t.P()
 
 	// It's legal to import a message and use it as an input or output for a
@@ -1144,6 +1144,11 @@ func (t *twirp) generateServerProtobufMethod(service *descriptor.ServiceDescript
 	t.P(`    s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))`)
 	t.P(`    return`)
 	t.P(`  }`)
+	t.P()
+	t.P(`  defer func() {`)
+	t.P(`	 buf = nil`)
+	t.P(`  }()`)
+	t.P()
 	t.P(`  reqContent := new(`, t.goTypeName(method.GetInputType()), `)`)
 	t.P(`  if err = `, t.pkgs["proto"], `.Unmarshal(buf, reqContent); err != nil {`)
 	t.P(`    s.writeError(ctx, resp, malformedRequestError("the protobuf request could not be decoded"))`)

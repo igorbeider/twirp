@@ -26,17 +26,17 @@ $ brew install protobuf
 
 ### With retool
 
-We recommend using [retool](https://github.com/twitchtv/retool) to manage go
+We recommend using [retool](https://github.com/igorbeider/retool) to manage go
 tools like commands and linters:
 
 ```sh
-$ go get github.com/twitchtv/retool
+$ go get github.com/igorbeider/retool
 ```
 
 Install the plugins into your project's `_tools` folder:
 ```sh
 $ retool add github.com/golang/protobuf/protoc-gen-go master
-$ retool add github.com/twitchtv/twirp/protoc-gen-twirp master
+$ retool add github.com/igorbeider/twirp/protoc-gen-twirp master
 ```
 
 This will make it easier to manage and update versions without causing problems
@@ -55,7 +55,7 @@ Download and install `protoc-gen-go` using the normal Go tools:
 
 ```sh
 $ go get -u github.com/golang/protobuf/protoc-gen-go
-$ go get -u github.com/twitchtv/twirp/protoc-gen-twirp
+$ go get -u github.com/igorbeider/twirp/protoc-gen-twirp
 ```
 
 The normal Go tools will install `protoc-gen-go` in `$GOBIN`, defaulting to
@@ -69,20 +69,20 @@ $ export PATH=$PATH:$GOPATH/bin
 ## Updating Twirp ##
 
 Twirp releases are tagged with semantic versioning and releases are managed by
-Github. See the [releases](https://github.com/twitchtv/twirp/releases) page.
+Github. See the [releases](https://github.com/igorbeider/twirp/releases) page.
 
 To stay up to date, you update `protoc-gen-twirp` and regenerate your code. If
-you are using [retool](https://github.com/twitchtv/retool), that's done with
+you are using [retool](https://github.com/igorbeider/retool), that's done with
 
 ```sh
-$ retool upgrade github.com/twitchtv/twirp/protoc-gen-twirp v5.2.0
+$ retool upgrade github.com/igorbeider/twirp/protoc-gen-twirp v5.2.0
 ```
 
 If you're not using retool, you can also do a system-wide install with checking
 out the package new version and using `go install`:
 
 ```sh
-$ cd $GOPATH/src/github.com/twitchtv/twirp
+$ cd $GOPATH/src/github.com/igorbeider/twirp
 $ git checkout v5.2.0
 $ go install ./protoc-gen-twirp
 ```

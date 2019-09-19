@@ -28,14 +28,14 @@ test_python_client: generate build/clientcompat build/pycompat
 
 setup:
 	./install_proto.bash
-	GOPATH=$(CURDIR)/_tools go install github.com/twitchtv/retool/...
+	GOPATH=$(CURDIR)/_tools go install github.com/igorbeider/retool/...
 	$(RETOOL) build
 
 release_gen:
 	git clean -xdf
 	docker run \
-		--volume "$(CURDIR):/go/src/github.com/twitchtv/twirp" \
-		--workdir "/go/src/github.com/twitchtv/twirp" \
+		--volume "$(CURDIR):/go/src/github.com/igorbeider/twirp" \
+		--workdir "/go/src/github.com/igorbeider/twirp" \
 		$(DOCKER_RELEASE_IMAGE) \
 		internal/release_gen.sh
 

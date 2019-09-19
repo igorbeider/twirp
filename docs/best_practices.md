@@ -92,13 +92,13 @@ Code generation depends on `protoc` and its plugins `protoc-gen-go` and
 Make sure to specify the required `protoc` version in your README or
 CONTRIBUTING file.
 
-For the plugins, you can use [retool](https://github.com/twitchtv/retool). Like
+For the plugins, you can use [retool](https://github.com/igorbeider/retool). Like
 with most Go commands used to manage your source code, retool makes it easy to
 lock versions for all team members.
 
 ```sh
 $ retool add github.com/golang/protobuf/protoc-gen-go master
-$ retool add github.com/twitchtv/twirp/protoc-gen-twirp master
+$ retool add github.com/igorbeider/twirp/protoc-gen-twirp master
 ```
 
 Using a Makefile is a good way to simplify code generation:
